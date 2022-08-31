@@ -207,3 +207,29 @@ const time = document.querySelector('#time-input');
 time.addEventListener('input', function (event) {
   document.querySelector('#time-sum').innerText = time.value;
 })
+
+const categoriesSummary = document.querySelector("#category-sum");
+const institutionSummary = document.querySelector("#institution-sum");
+
+document.querySelector("#step-4").addEventListener("click", () => {
+  console.log("event whdoaahidiajh");
+  categoriesSummary.innerHTML = getSelectedGifts();
+  institutionSummary.innerHTML = getSelectedInstitution();
+})
+
+const giftsContainer = Array.from(document.querySelectorAll("#category-input > div")).slice(0,-1);
+const gifts = giftsContainer.map(gift => {
+  const id = gift.querySelector("label > input").value;
+  const isChecked = () => gift.querySelector("label > input").checked;
+  const text = gift.querySelector("label > .description").innerHTML;
+
+  return {id, text, isChecked}
+})
+
+const getSelectedGifts = () => gifts.filter(gift => gift.isChecked()).map(gift => gift.text).join(',');
+
+const institutionContainer = Array.from(document.querySelectorAll("#institution-input > div")).slice(0,-1);
+const getSelectedInstitution = () => {
+  const institution = institutionContainer.find(institution => institution.querySelector("label > input").checked);
+  return institution ? institution.querySelector(".title").innerHTML : "Nikt kurwa XDDD"
+}

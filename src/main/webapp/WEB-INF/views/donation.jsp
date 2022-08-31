@@ -30,7 +30,7 @@
 
         <form action="form-donation-result" method="post">
             <!-- STEP 1: class .active is switching steps -->
-            <div data-step="1" class="active">
+            <div id="category-input" data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
                 <c:forEach items="${Category}" var="cat">
@@ -42,7 +42,7 @@
                                 value="${cat.id}"
                         />
                         <span class="checkbox"></span>
-                        <span class="description" id="category-input">${cat.name}</span>
+                        <span class="description" >${cat.name}</span>
                     </label>
                 </div>
                 </c:forEach>
@@ -71,12 +71,12 @@
 
 
             <!-- STEP 3 -->
-            <div data-step="3">
+            <div id="institution-input" data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
                 <c:forEach items="${Institution}" var="inst">
                 <div class="form-group form-group--checkbox">
                     <label>
-                        <input type="radio" name="institution" value="${inst.id}" id="institution-input" />
+                        <input type="radio" name="institution" value="${inst.id}" />
                         <span class="checkbox radio"></span>
                         <span class="description">
                   <div class="title">${inst.name}</div>
