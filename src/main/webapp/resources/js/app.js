@@ -173,4 +173,37 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+const bags = document.querySelector('#bags-input');
+bags.addEventListener('input', function (event) {
+    document.querySelector('#quantity-sum').innerText = bags.value;
+})
 
+const street = document.querySelector('#street-input');
+street.addEventListener('input', function (event) {
+    document.querySelector('#street-sum').innerText = street.value;
+})
+
+const city = document.querySelector('#city-input');
+city.addEventListener('input', function (event) {
+    document.querySelector('#city-sum').innerText = city.value;
+})
+
+const zipcode = document.querySelector('#zipcode-input');
+zipcode.addEventListener('input', function (event) {
+    document.querySelector('#zipcode-sum').innerText = zipcode.value;
+})
+
+const comment = document.querySelector('#comment-input');
+comment.addEventListener('input', function (event) {
+  document.querySelector('#comment-sum').innerText = comment.value;
+})
+
+const date = document.querySelector('#date-input');
+date.addEventListener('input', function (event) {
+  document.querySelector('#date-sum').innerText = date.value;
+})
+
+const time = document.querySelector('#time-input');
+time.addEventListener('input', function (event) {
+  document.querySelector('#time-sum').innerText = time.value;
+})
