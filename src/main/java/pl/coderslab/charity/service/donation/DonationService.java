@@ -1,5 +1,7 @@
 package pl.coderslab.charity.service.donation;
 
-public interface DonationService {
+import pl.coderslab.charity.domain.Donation;
 
+public interface DonationService {
+    void saveDonation(Donation donation);
 }
