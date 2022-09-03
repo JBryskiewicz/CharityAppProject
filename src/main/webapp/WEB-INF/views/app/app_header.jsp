@@ -17,7 +17,7 @@
         <ul>
             <li><a href="/app/dashboard" class="btn btn--without-border active">Panel Główny</a></li>
             <li><a href="/app/userStats" class="btn btn--without-border">Twoje Paczki</a></li>
-            <li><a href="/admin/login" class="btn btn--without-border">Panel Administratora</a></li>
+            <li><a href="/app/adminLogin" class="btn btn--without-border">Panel Administratora</a></li>
             <li><a href="/app/list" class="btn btn--without-border">Fundacje i organizacje</a></li>
         </ul>
     </nav>

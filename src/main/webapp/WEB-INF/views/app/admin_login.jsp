@@ -10,7 +10,7 @@
 
     <form method="post">
         <div class="form-group">
-            <input type="text" name="username" placeholder="Nazwa Użytkownika" />
+            <input type="text" name="username" placeholder="Admin Login" />
         </div>
         <div class="form-group">
             <input type="password" name="password" placeholder="Hasło" />

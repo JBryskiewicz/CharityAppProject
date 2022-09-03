@@ -23,11 +23,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/app/**").hasAnyRole("USER","ADMIN")
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/app/dashboard")
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
+                .antMatchers("/app/**")
+                .hasAnyRole("USER","ADMIN")
+
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/app/dashboard")
+
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
                 .logoutSuccessUrl("/")
                 .permitAll()
-                .and().exceptionHandling().accessDeniedPage("/403");
+
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403");
     }
 }

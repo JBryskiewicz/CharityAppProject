@@ -12,4 +12,8 @@ public class AppController {
     public String Dashboard(){
         return "app/dashboard";
     }
+    @GetMapping("adminLogin")
+    public String AdminLogin(){
+        return "app/admin_login";
+    }
 }
