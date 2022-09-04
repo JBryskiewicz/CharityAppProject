@@ -15,10 +15,12 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul>
-            <li><a href="/app/dashboard" class="btn btn--without-border active">Panel Główny</a></li>
-            <li><a href="/app/userStats" class="btn btn--without-border">Fundacje</a></li>
-            <li><a href="/admin/login" class="btn btn--without-border">Kategorie</a></li>
-            <li><a href="/app/list" class="btn btn--without-border">Wyloguj</a></li>
+            <li><a href="/admin/dashboard" class="btn btn--without-border">Panel Użytkownika</a></li>
+            <li><a href="/admin/fundation-list" class="btn btn--without-border">Fundacje</a></li>
+            <li><a href="/admin/category-list" class="btn btn--without-border">Kategorie</a></li>
+            <li><a href="/admin/users" class="btn btn--without-border">Użytkownicy</a></li>
+            <li><a href="/admin/profile" class="btn btn--without-border">Profil</a></li>
+            <li><a href="/logout" class="btn btn--without-border">Wyloguj</a></li>
         </ul>
     </nav>
 </header>

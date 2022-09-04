@@ -15,10 +15,12 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul>
-            <li><a href="/app/dashboard" class="btn btn--without-border active">Panel Główny</a></li>
-            <li><a href="/app/userStats" class="btn btn--without-border">Twoje Paczki</a></li>
-            <li><a href="/app/adminLogin" class="btn btn--without-border">Panel Administratora</a></li>
-            <li><a href="/app/list" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="/admin/dashboard" class="btn btn--without-border">Panel Administratora</a></li>
+            <li><a href="/app/fundation-list" class="btn btn--without-border">Fundacje</a></li>
+            <li><a href="/app/category-list" class="btn btn--without-border">Kategorie</a></li>
+            <li><a href="/app/your-donations" class="btn btn--without-border">Twoje Paczki</a></li>
+            <li><a href="/app/profile" class="btn btn--without-border">Profil</a></li>
+            <li><a href="/logout" class="btn btn--without-border">Wyloguj</a></li>
         </ul>
     </nav>
 </header>

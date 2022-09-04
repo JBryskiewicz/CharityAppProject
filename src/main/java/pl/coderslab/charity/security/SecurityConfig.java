@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/app/**")
-                .hasAnyRole("USER","ADMIN")
+                .antMatchers("/app/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
 
                 .and()
                 .formLogin()
