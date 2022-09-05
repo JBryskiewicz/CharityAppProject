@@ -15,7 +15,7 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul>
-            <li><a href="/admin/dashboard" class="btn btn--without-border">Panel Użytkownika</a></li>
+            <li><a href="/app/dashboard" class="btn btn--without-border">Panel Użytkownika</a></li>
             <li><a href="/admin/fundation-list" class="btn btn--without-border">Fundacje</a></li>
             <li><a href="/admin/category-list" class="btn btn--without-border">Kategorie</a></li>
             <li><a href="/admin/users" class="btn btn--without-border">Użytkownicy</a></li>

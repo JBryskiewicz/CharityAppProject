@@ -1,26 +1,37 @@
 package pl.coderslab.charity.web;
 
+import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.domain.CurrentUser;
+import pl.coderslab.charity.domain.Institution;
 import pl.coderslab.charity.domain.User;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.UserRepository;
+import pl.coderslab.charity.service.institution.InstitutionService;
+
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/admin")
 public class AdminAppController {
 
     private final InstitutionRepository institutionRepository;
+    private final InstitutionService institutionService;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
 
-    public AdminAppController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public AdminAppController(InstitutionRepository institutionRepository, InstitutionService institutionService, CategoryRepository categoryRepository, UserRepository userRepository) {
         this.institutionRepository = institutionRepository;
+        this.institutionService = institutionService;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
     }
@@ -30,16 +41,63 @@ public class AdminAppController {
         return "admin/admin_dashboard";
     }
 
+    // Fundation section - START
+
     @GetMapping("/fundation-list")
     public String FundationList(Model model){
-        model.addAttribute("Instutution", institutionRepository.findAll());
-        return "app/fundation_list";
+        model.addAttribute("institution",institutionRepository.findAll());
+        return "admin/fundation_list";
     }
+    @GetMapping("/fundation-creator")
+    public String FundationCreator(Model model){
+        model.addAttribute("institution", new Institution());
+        return "admin/fundation_creator";
+    }
+    @PostMapping("/fundation-creator-result")
+    public String FundationCreatorResult(@Valid Institution institution, BindingResult result){
+        if(result.hasErrors()){
+            return "admin/fundation_creator";
+        }
+        institutionRepository.save(institution);
+        return "redirect:/admin/fundation-list";
+    }
+    @GetMapping("/fundation-details/{id}")
+    public String FundationDetails(Model model, @PathVariable long id){
+        model.addAttribute("institution", institutionRepository.findById(id).get());
+        return "admin/fundation_details/"+id;
+    }
+
+    @GetMapping("/fundation-edit/{id}")
+    public String FundationEditor(Model model, @PathVariable long id){
+        model.addAttribute("institution", institutionRepository.findById(id).get());
+        return "admin/fundation_editor";
+    }
+    @PostMapping("/fundation-edit-result")
+    public String FundationEditorResult(@Valid Institution institution, BindingResult result, Model model){
+        if (result.hasErrors()){
+            model.addAttribute("institution", institutionRepository.findById(institution.getId()).get());
+            return "admin/fundation_editor";
+        }
+        institutionService.editInstitution(institution);
+        return "redirect:/admin/fundation-list";
+    }
+    @GetMapping("/fundation-delete/{id}")
+    public String FundationDel(Model model, @PathVariable long id){
+        model.addAttribute("institution", institutionRepository.findById(id).get());
+        return "admin/fundation_del_confirm";
+    }
+    @GetMapping("/fundation-del-result/{id}")
+    public String FundationDelResult(@PathVariable long id){
+        institutionRepository.delete(institutionRepository.findById(id).get());
+        return "redirect:/admin/fundation-list";
+    }
+
+    // Fundation section - END
 
     @GetMapping("/category-list")
     public String CategoryList(Model model){
-        model.addAttribute("Category", categoryRepository.findAll());
-        return "app/category_list";
+        model.addAttribute("category", categoryRepository.findAll());
+        return "admin/category_list";
     }
 
     @GetMapping("/user-list")

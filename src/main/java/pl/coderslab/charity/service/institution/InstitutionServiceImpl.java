@@ -18,4 +18,8 @@ public class InstitutionServiceImpl implements InstitutionService {
         this.institutionRepository = institutionRepository;
     }
 
+    @Override
+    public void editInstitution(Institution institution) {
+        entityManager.merge(institution);
+    }
 }
