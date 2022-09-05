@@ -18,6 +18,7 @@ import java.util.Set;
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private long id;
 
     @Size(max = 40)

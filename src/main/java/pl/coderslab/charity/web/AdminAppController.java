@@ -1,6 +1,5 @@
 package pl.coderslab.charity.web;
 
-import org.springframework.boot.Banner;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.domain.CurrentUser;
 import pl.coderslab.charity.domain.Institution;
+import pl.coderslab.charity.domain.Role;
 import pl.coderslab.charity.domain.User;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.institution.InstitutionService;
+import pl.coderslab.charity.service.user.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -28,12 +33,16 @@ public class AdminAppController {
     private final InstitutionService institutionService;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
+    private final RoleRepository roleRepository;
 
-    public AdminAppController(InstitutionRepository institutionRepository, InstitutionService institutionService, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public AdminAppController(InstitutionRepository institutionRepository, InstitutionService institutionService, CategoryRepository categoryRepository, UserRepository userRepository, UserService userService, RoleRepository roleRepository) {
         this.institutionRepository = institutionRepository;
         this.institutionService = institutionService;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping("/dashboard")
@@ -94,17 +103,40 @@ public class AdminAppController {
 
     // Fundation section - END
 
+    // User CRUD section - START
+    @GetMapping("/users")
+    public String UserList(Model model){
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("admins", userRepository.findAllByRoleId(1));
+        return "admin/users_list";
+    }
+    @GetMapping("/user-admin/{id}")
+    public String UserToAdmin(@PathVariable long id){
+        User user = userRepository.findById(id).get();
+        Set<Role> roleList = user.getRoles().stream().collect(Collectors.toSet());
+        roleList.add(roleRepository.findById(1L).get());
+        user.setRoles(roleList);
+        userService.editUser(user);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/admin-user/{id}")
+    public String AdminToUser(@PathVariable long id){
+        User user = userRepository.findById(id).get();
+        Set<Role> roleList = user.getRoles().stream().collect(Collectors.toSet());
+        roleList.clear();
+        roleList.add(roleRepository.findById(2L).get());
+        user.setRoles(roleList);
+        userService.editUser(user);
+        return "redirect:/admin/users";
+    }
+
+
+    // User CRUD section - END
+
     @GetMapping("/category-list")
     public String CategoryList(Model model){
         model.addAttribute("category", categoryRepository.findAll());
         return "admin/category_list";
-    }
-
-    @GetMapping("/user-list")
-    public String UserList(Model model){
-        model.addAttribute("Users", userRepository.findAll());
-        //pass all users with ADMIN_ROLE, search by role id.
-        return "admin/user_list";
     }
 
     @GetMapping("/profile")
