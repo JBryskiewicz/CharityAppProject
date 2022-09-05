@@ -42,7 +42,29 @@
                 <a> | </a>
                 <a href="/admin/user-del/${u.id}">Usuń</a>
                 <a> | </a>
+                <a href="/admin/ban-user/${u.id}">Zablokuj</a>
+                <a> | </a>
                 <a href="/admin/user-admin/${u.id}">Admin ON</a>
+            </h3>
+            <h3></br></h3>
+        </c:forEach>
+    </div>
+</div>
+<div class="ban-row">
+    <div><h2>Lista Zablokowanych Użytkowników</h2></div>
+    <div>
+        <c:forEach items="${bannedUsers}" var="bu">
+            <h3 style="font-size: 20px; text-align: center">
+                Nazwa: ${bu.userName}  |  email: ${bu.email}
+            </h3>
+            <h3 style="font-size: 16px; text-align: center">
+                <a href="/admin/user-details/${bu.id}">Szczegóły</a>
+                <a> | </a>
+                <a href="/admin/user-edit/${bu.id}">Edytuj</a>
+                <a> | </a>
+                <a href="/admin/user-del/${bu.id}">Usuń</a>
+                <a> | </a>
+                <a href="/admin/unban-user/${bu.id}">Odblokuj</a>
             </h3>
             <h3></br></h3>
         </c:forEach>

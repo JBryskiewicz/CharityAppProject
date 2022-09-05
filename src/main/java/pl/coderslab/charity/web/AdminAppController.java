@@ -103,11 +103,12 @@ public class AdminAppController {
 
     // Fundation section - END
 
-    // User CRUD section - START
+    // User management section - START
     @GetMapping("/users")
     public String UserList(Model model){
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userRepository.findAllByRoleId(2));
         model.addAttribute("admins", userRepository.findAllByRoleId(1));
+        model.addAttribute("bannedUsers", userRepository.findAllByRoleId(3));
         return "admin/users_list";
     }
     @GetMapping("/user-admin/{id}")
@@ -129,9 +130,28 @@ public class AdminAppController {
         userService.editUser(user);
         return "redirect:/admin/users";
     }
+    @GetMapping("/ban-user/{id}")
+    public String BanUser(@PathVariable long id){
+        User user = userRepository.findById(id).get();
+        Set<Role> roleList = user.getRoles().stream().collect(Collectors.toSet());
+        roleList.clear();
+        roleList.add(roleRepository.findById(3L).get());
+        user.setRoles(roleList);
+        userService.editUser(user);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/unban-user/{id}")
+    public String UnbanUser(@PathVariable long id){
+        User user = userRepository.findById(id).get();
+        Set<Role> roleList = user.getRoles().stream().collect(Collectors.toSet());
+        roleList.clear();
+        roleList.add(roleRepository.findById(2L).get());
+        user.setRoles(roleList);
+        userService.editUser(user);
+        return "redirect:/admin/users";
+    }
 
-
-    // User CRUD section - END
+    // User management section - END
 
     @GetMapping("/category-list")
     public String CategoryList(Model model){
