@@ -5,8 +5,6 @@
 
 <%@include file="admin_header.jsp" %>
 
-<h2>[Lista użytkowników i administratorów]</h2>
-
 <div class="admin-row">
     <div><h2>Lista Administratorów</h2></div>
     <div>

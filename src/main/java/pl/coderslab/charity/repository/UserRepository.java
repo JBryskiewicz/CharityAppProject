@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
         User findByUserName(String username);
-
         @Query(value = "select * from user left join user_roles ur on user.id = ur.user_id where roles_id = ?1", nativeQuery = true)
         List<User> findAllByRoleId(long id);
 }

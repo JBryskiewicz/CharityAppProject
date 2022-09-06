@@ -45,8 +45,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(1);
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         entityManager.merge(user);
     }
 
-
+    @Override
+    public void banEditUser(User user) {
+        entityManager.merge(user);
+    }
 }

@@ -106,9 +106,9 @@ public class AdminAppController {
     // User management section - START
     @GetMapping("/users")
     public String UserList(Model model){
-        model.addAttribute("users", userRepository.findAllByRoleId(2));
-        model.addAttribute("admins", userRepository.findAllByRoleId(1));
-        model.addAttribute("bannedUsers", userRepository.findAllByRoleId(3));
+        model.addAttribute("users", userRepository.findAllByRoleId(2L));
+        model.addAttribute("admins", userRepository.findAllByRoleId(1L));
+        model.addAttribute("bannedUsers", userRepository.findAllByRoleId(3L));
         return "admin/users_list";
     }
     @GetMapping("/user-admin/{id}")
@@ -137,7 +137,7 @@ public class AdminAppController {
         roleList.clear();
         roleList.add(roleRepository.findById(3L).get());
         user.setRoles(roleList);
-        userService.editUser(user);
+        userService.banEditUser(user);
         return "redirect:/admin/users";
     }
     @GetMapping("/unban-user/{id}")
@@ -147,7 +147,30 @@ public class AdminAppController {
         roleList.clear();
         roleList.add(roleRepository.findById(2L).get());
         user.setRoles(roleList);
+        userService.banEditUser(user);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/user-edit/{id}")
+    public String EditUser(Model model, @PathVariable long id){
+        model.addAttribute("user", userRepository.findById(id).get());
+        return "admin/user_edit";
+    }
+    @PostMapping("/user-edit-result")
+    public String EditUserResult(@Valid User user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("user", userRepository.findById(user.getId()).get());
+        }
         userService.editUser(user);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/user-del/{id}")
+    public String UserDel(Model model, @PathVariable long id){
+        model.addAttribute("user", userRepository.findById(id).get());
+        return "admin/user_del_confirm";
+    }
+    @GetMapping("/user-del-result/{id}")
+    public String UserDelResult(@PathVariable long id){
+        userRepository.delete(userRepository.findById(id).get());
         return "redirect:/admin/users";
     }
 
