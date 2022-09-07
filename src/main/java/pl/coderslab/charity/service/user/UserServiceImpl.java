@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void banEditUser(User user) {
+    public void softEditUser(User user) {
         entityManager.merge(user);
     }
 }

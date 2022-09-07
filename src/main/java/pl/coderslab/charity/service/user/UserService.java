@@ -6,5 +6,5 @@ public interface UserService {
     User findByUserName(String name);
     void saveUser(User user);
     void editUser(User user);
-    void banEditUser(User user);
+    void softEditUser(User user);
 }

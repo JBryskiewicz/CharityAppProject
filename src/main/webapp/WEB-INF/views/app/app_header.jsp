@@ -15,7 +15,9 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul>
-            <li><a href="/admin/dashboard" class="btn btn--without-border">Panel Administratora</a></li>
+            <c:if test="${CheckAdmin == 1}">
+                <li><a href="/admin/dashboard" class="btn btn--without-border">Panel Administratora</a></li>
+            </c:if>
             <li><a href="/app/fundation-list" class="btn btn--without-border">Fundacje</a></li>
             <li><a href="/app/category-list" class="btn btn--without-border">Kategorie</a></li>
             <li><a href="/app/your-donations" class="btn btn--without-border">Twoje Paczki</a></li>

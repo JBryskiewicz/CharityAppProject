@@ -21,21 +21,19 @@ import java.util.List;
 public class DonationController {
 
     private final InstitutionRepository institutionRepository;
-    private final DonationRepository donationRepository;
     private final CategoryRepository categoryRepository;
     private final DonationService donationService;
 
-    public DonationController(InstitutionRepository institutionRepository, DonationRepository donationRepository, CategoryRepository categoryRepository, DonationService donationService) {
+    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository,
+                              DonationService donationService) {
         this.institutionRepository = institutionRepository;
-        this.donationRepository = donationRepository;
         this.categoryRepository = categoryRepository;
         this.donationService = donationService;
     }
 
     @GetMapping("/form-donation")
     public String DonationForm(Model model){
-        model.addAttribute("Institution", institutionRepository.findAll());
-        model.addAttribute("Category", categoryRepository.findAll());
+        passModelAttributes(model);
         return "/donation";
     }
 
@@ -43,13 +41,19 @@ public class DonationController {
     public String DonationFormResult(@Valid Donation donation, BindingResult result, Model model,
                                      @RequestParam List<Long> category){
         if(result.hasErrors()){
-            model.addAttribute("Institution", institutionRepository.findAll());
-            model.addAttribute("Category", categoryRepository.findAll());
+            passModelAttributes(model);
             return "/form-donation";
         }
         List<Category> categoryList = categoryRepository.findAllById(category);
         donation.setCategories(categoryList);
         donationService.saveDonation(donation);
         return "/donation-result";
+    }
+
+    //Support methods section - START
+
+    public void passModelAttributes(Model model){
+        model.addAttribute("Institution", institutionRepository.findAll());
+        model.addAttribute("Category", categoryRepository.findAll());
     }
 }
