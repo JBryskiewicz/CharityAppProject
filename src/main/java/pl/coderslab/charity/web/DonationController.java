@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.domain.Category;
 import pl.coderslab.charity.domain.Donation;
 import pl.coderslab.charity.repository.CategoryRepository;
-import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.service.donation.DonationService;
 
