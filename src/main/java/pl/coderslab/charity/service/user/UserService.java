@@ -7,4 +7,5 @@ public interface UserService {
     void saveUser(User user);
     void editUser(User user);
     void softEditUser(User user);
+    String confirmToken(String token);
 }
