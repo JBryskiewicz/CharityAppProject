@@ -1,5 +1,6 @@
 package pl.coderslab.charity.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,21 +10,18 @@ import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.service.email_sender.EmailSenderService;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
 
 @Controller
+@AllArgsConstructor
 public class HomeController {
 
     private final InstitutionRepository institutionRepository;
     private final DonationRepository donationRepository;
     private final EmailSenderService senderService;
-
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, EmailSenderService senderService) {
-        this.institutionRepository = institutionRepository;
-        this.donationRepository = donationRepository;
-        this.senderService = senderService;
-    }
 
     private final String emailReceiver = "[email_placeholder]";
 

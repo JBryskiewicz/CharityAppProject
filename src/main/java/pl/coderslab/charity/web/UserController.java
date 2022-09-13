@@ -1,24 +1,19 @@
 package pl.coderslab.charity.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.domain.User;
 import pl.coderslab.charity.service.user.UserService;
-import pl.coderslab.charity.service.verification_token.VerificationTokenService;
 
 import javax.validation.Valid;
 
 @Controller
+@AllArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final VerificationTokenService tokenService;
-
-    public UserController(UserService userService, VerificationTokenService tokenService) {
-        this.userService = userService;
-        this.tokenService = tokenService;
-    }
 
     @GetMapping("/signup")
     public String register(Model model){

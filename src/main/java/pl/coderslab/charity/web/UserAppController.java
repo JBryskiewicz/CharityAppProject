@@ -1,5 +1,6 @@
 package pl.coderslab.charity.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +17,12 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/app")
+@AllArgsConstructor
 public class UserAppController {
     private final InstitutionRepository institutionRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
 
-    public UserAppController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository,
-                             UserRepository userRepository) {
-        this.institutionRepository = institutionRepository;
-        this.categoryRepository = categoryRepository;
-        this.userRepository = userRepository;
-    }
     private final int checkAdminAttribute = 1;
     private final String adminRole = "ROLE_ADMIN";
     @GetMapping("/dashboard")

@@ -1,5 +1,6 @@
 package pl.coderslab.charity.service.verification_token;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.charity.domain.User;
@@ -7,16 +8,15 @@ import pl.coderslab.charity.domain.VerificationToken;
 import pl.coderslab.charity.repository.VerificationTokenRepository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class VerificationTokenServiceImpl implements VerificationTokenService{
     private final VerificationTokenRepository tokenRepository;
-
-    public VerificationTokenServiceImpl(VerificationTokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
 
     private static final int EXPIRATION = 24 * 60;
 
@@ -32,9 +32,8 @@ public class VerificationTokenServiceImpl implements VerificationTokenService{
     }
 
     //Token Expiration Date
-    private Timestamp calculateExpiryDate(int expiryDateInMinutes){
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, expiryDateInMinutes);
-        return new Timestamp(cal.getTime().getTime());
+    private LocalDateTime calculateExpiryDate(int expiryDateInMinutes){
+        LocalDateTime time = LocalDateTime.now().plusMinutes(expiryDateInMinutes);
+        return time;
     }
 }

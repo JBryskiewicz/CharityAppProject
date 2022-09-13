@@ -1,5 +1,6 @@
 package pl.coderslab.charity.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,18 +18,12 @@ import java.util.List;
 
 
 @Controller
+@AllArgsConstructor
 public class DonationController {
 
     private final InstitutionRepository institutionRepository;
     private final CategoryRepository categoryRepository;
     private final DonationService donationService;
-
-    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository,
-                              DonationService donationService) {
-        this.institutionRepository = institutionRepository;
-        this.categoryRepository = categoryRepository;
-        this.donationService = donationService;
-    }
 
     @GetMapping("/form-donation")
     public String DonationForm(Model model){

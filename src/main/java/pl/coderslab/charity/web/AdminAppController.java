@@ -1,5 +1,6 @@
 package pl.coderslab.charity.web;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,11 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
+@AllArgsConstructor
 public class AdminAppController {
+    private static final long adminId = 1L;
+    private static final long userId = 2L;
+    private static final long bannedId = 3L;
 
     private final InstitutionRepository institutionRepository;
     private final InstitutionService institutionService;
@@ -35,20 +40,7 @@ public class AdminAppController {
     private final UserService userService;
     private final RoleRepository roleRepository;
 
-    public AdminAppController(InstitutionRepository institutionRepository, InstitutionService institutionService,
-                              CategoryRepository categoryRepository, UserRepository userRepository, UserService userService,
-                              RoleRepository roleRepository) {
-        this.institutionRepository = institutionRepository;
-        this.institutionService = institutionService;
-        this.categoryRepository = categoryRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
-        this.roleRepository = roleRepository;
-    }
 
-    private final long adminId = 1L;
-    private final long userId = 2L;
-    private final long bannedId = 3L;
 
     @GetMapping("/dashboard")
     public String AdminDashboard(){
